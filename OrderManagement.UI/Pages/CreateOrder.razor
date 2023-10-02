@@ -1,0 +1,76 @@
+﻿@page "/createorder"
+
+<h3>Create Order</h3>
+
+@if (showSuccessMessage)
+{
+    <div class="alert alert-success">
+        Order created successfully!
+    </div>
+}
+
+@if (showErrorMessage)
+{
+    <div class="alert alert-danger">
+        An error occurred while creating the order.
+    </div>
+}
+
+<form>
+    <div class="form-group">
+        <label for="itemName">Item:</label>
+        <select class="form-control" id="itemName" @bind="newOrder.ItemName">
+            <option value="">-- Select an item --</option>
+            @foreach (var item in items)
+            {
+                <option value="@item">@item</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="customerId">Customer Name:</label>
+        <input type="number" class="form-control" id="customerName" @bind="newOrder.CustomerName">
+    </div>
+    <div class="form-group">
+        <label for="totalAmount">Amount:</label>
+        <input type="number" class="form-control" id="totalAmount" @bind="newOrder.Amount">
+    </div>
+    <button class="btn btn-primary" @onclick="CreateOrderAsync">Create Order</button>
+</form>
+
+@code {
+    private List<string> items = new List<string>
+    {
+        "Xbox",
+        "Playstation",
+        "Laptop",
+        "Smart TV",
+        "IPhone"
+    };
+
+    private Order newOrder = new Order();
+    private bool showSuccessMessage = false;
+    private bool showErrorMessage = false;
+
+    private async Task CreateOrderAsync()
+    {
+        // Send a request to the server to create the order
+        // You would typically make an HTTP POST request to your API here
+        // and handle the response
+        try
+        {
+            // Assuming you have a service or API client to create the order
+            // Example: await orderService.CreateOrder(newOrder);
+
+            // Reset the form and show a success message
+            newOrder = new Order();
+            showSuccessMessage = true;
+        }
+        catch (Exception ex)
+        {
+            // Handle any errors that occur during the order creation process
+            showErrorMessage = true;
+            Console.WriteLine(ex.Message);
+        }
+    }
+}

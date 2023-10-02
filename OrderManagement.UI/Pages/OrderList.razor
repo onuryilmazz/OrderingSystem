@@ -1,0 +1,36 @@
+﻿@page "/orderlist"
+
+<h3>Order List</h3>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Customer Name</th>
+            <th>Item</th>
+            <th>Amount</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in orders)
+        {
+            <tr>
+                <td>@order.OrderId.ToString()</td>
+                <td>@order.CustomerName</td>
+                <td>@order.ItemName</td>
+                <td>@order.Amount.ToString()</td>
+                <td>@order.Status.ToString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Order> orders = new List<Order>
+    {
+        new Order { OrderId = Guid.NewGuid(),  CustomerName = "Customer 1", ItemName = "Laptop", Amount = 2, Status = OrderStatus.Processing },
+        new Order { OrderId = Guid.NewGuid(),  CustomerName = "Customer 2", ItemName = "Iphone", Amount = 3, Status = OrderStatus.Processing },
+        new Order { OrderId = Guid.NewGuid(),  CustomerName = "Customer 3", ItemName = "Playstation", Amount = 1, Status = OrderStatus.Processing }
+    };
+}
